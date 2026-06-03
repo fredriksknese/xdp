@@ -1,0 +1,57 @@
+.TH CAPTURE_CDP_LLDP 1 "2026-06-03" "xdp" "User Commands"
+.SH NAME
+capture_cdp_lldp \- capture and decode the first CDP/LLDP frame on an interface
+.SH SYNOPSIS
+.B capture_cdp_lldp
+.RI [ interface ]
+.br
+.B capture_cdp_lldp
+.B \-s
+.SH DESCRIPTION
+.B capture_cdp_lldp
+listens on a network interface for the first CDP (Cisco Discovery Protocol)
+or LLDP (Link Layer Discovery Protocol) advertisement, prints its full decoded
+contents, and exits. The decoded output reveals switch and port information
+such as the neighbor's system name, port ID, and native VLAN.
+.PP
+These frames are typically broadcast every 30\(en60 seconds, so it may take up
+to a minute before any output appears.
+.PP
+If no interface is given, the first connected (carrier present), non-loopback
+interface is selected automatically. Packet capture usually requires elevated
+privileges; if the interface cannot be opened as the current user, the command
+re-runs itself with
+.BR sudo (8).
+.SH OPTIONS
+.TP
+.I interface
+Capture on the named interface (for example
+.IR eth0 ).
+.TP
+.B \-s
+Interactively select the interface from a menu of active, non-loopback
+interfaces.
+.SH EXIT STATUS
+Returns 0 on success. Returns a non-zero status if no suitable interface is
+found or if the underlying capture fails.
+.SH EXAMPLES
+.TP
+.B capture_cdp_lldp
+Auto-pick the first connected, non-loopback interface.
+.TP
+.B capture_cdp_lldp \-s
+Choose an interface interactively.
+.TP
+.B capture_cdp_lldp eth0
+Capture on
+.IR eth0 .
+.SH REQUIREMENTS
+.BR tshark (1)
+(Wireshark CLI) and the
+.B iproute2
+suite
+.RB ( ip (8)).
+.SH SEE ALSO
+.BR tshark (1),
+.BR ip (8),
+.BR sudo (8)
