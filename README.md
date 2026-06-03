@@ -4,6 +4,20 @@ A small shell utility for discovering switch and port information by capturing
 CDP (Cisco Discovery Protocol) and LLDP (Link Layer Discovery Protocol) frames
 on a network interface.
 
+## Installation
+
+```bash
+# Installs to /usr/local by default (re-runs with sudo if needed)
+./install.sh
+
+# Or choose a prefix
+PREFIX=/usr ./install.sh
+```
+
+This copies the script to `$PREFIX/bin/capture_cdp_lldp` and the man page to
+`$PREFIX/share/man/man1/`, so you can run `capture_cdp_lldp` from anywhere and
+read `man capture_cdp_lldp`.
+
 ## `capture_cdp_lldp.sh`
 
 Listens on a network interface for the first CDP or LLDP advertisement and
